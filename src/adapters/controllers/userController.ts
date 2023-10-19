@@ -18,6 +18,16 @@ class UserController {
             res.status(401).json(error.message);
         }
     }
+
+    async login(req: Request, res: Response) {
+        try {
+            const user = await this.userCase.login(req.body);
+            res.status(user.status).json(user.data);
+        } catch (err) {
+            const error: Error = err as Error;
+            res.status(401).json(error);
+        }
+    }
 }
 
 export default UserController;
